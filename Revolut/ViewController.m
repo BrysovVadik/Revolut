@@ -56,7 +56,7 @@
     currentIndexCellExchangeTo = 0;
     
     [self setupDataForCollectionExchangeFrom];
-//    [self setupDataForCollectionExchangeTo];
+    //    [self setupDataForCollectionExchangeTo];
     
     self.buttonExchangeRate.layer.cornerRadius = 10;
     self.buttonExchangeRate.layer.borderWidth = 1;
@@ -69,15 +69,7 @@
     [super viewWillAppear:animated];
     
     [self.textFieldInput becomeFirstResponder];
-    
-    NSString *priceString = [NSString stringWithFormat:@"$%d = €%.4f", 0, 0.0000];
-    UIFont *bigFont = [UIFont systemFontOfSize:14.0];
-    NSDictionary *bigDict = [NSDictionary dictionaryWithObject: bigFont forKey:NSFontAttributeName];
-    NSMutableAttributedString *atrString = [[NSMutableAttributedString alloc] initWithString:priceString attributes: bigDict];
-    [atrString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10.0] range:(NSMakeRange(priceString.length - 2, 2))];
-    [atrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:(NSMakeRange(0, priceString.length))];
-    
-    [self.buttonExchangeRate setAttributedTitle:atrString forState:UIControlStateNormal];
+    [self setupExchangeRate:[NSString stringWithFormat:@"$%d = €%.2f", 1, 1.0000]];
     
     [self getUserData:^(NSDictionary *data, NSError *error) {
         if (!error && data) {
@@ -86,16 +78,26 @@
     }];
 }
 
+- (void)setupExchangeRate:(NSString *)rateString {
+    UIFont *bigFont = [UIFont systemFontOfSize:14.0];
+    NSDictionary *bigDict = [NSDictionary dictionaryWithObject: bigFont forKey:NSFontAttributeName];
+    NSMutableAttributedString *atrString = [[NSMutableAttributedString alloc] initWithString:rateString attributes: bigDict];
+    [atrString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10.0] range:(NSMakeRange(rateString.length - 2, 2))];
+    [atrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:(NSMakeRange(0, rateString.length))];
+    
+    [self.buttonExchangeRate setAttributedTitle:atrString forState:UIControlStateNormal];
+}
+
 - (void)getUserData:(void (^)(NSMutableDictionary *data, NSError *error))completion {
     AFHTTPRequestOperationManager *restManager = [AFHTTPRequestOperationManager manager];
     restManager.responseSerializer = [AFJSONResponseSerializer serializer];
     restManager.requestSerializer = [AFJSONRequestSerializer serializer];
     restManager.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     restManager.requestSerializer.timeoutInterval = 30;
-
-//    [restManager GET:@"https://api.fixer.io/latest?symbols=USD,GBP"
-//    [restManager GET:@"https://openexchangerates.org/api/latest.json?app_id=f34802952217477ba958ed93c39d5d2c"
-     [restManager GET:@"http://www.apilayer.net/api/live?access_key=fa11b482e47b901b28ced28cbcc0af03&currencies=EUR,GBP"
+    
+    //    [restManager GET:@"https://api.fixer.io/latest?symbols=USD,GBP"
+    //    [restManager GET:@"https://openexchangerates.org/api/latest.json?app_id=f34802952217477ba958ed93c39d5d2c"
+    [restManager GET:@"http://www.apilayer.net/api/live?access_key=fa11b482e47b901b28ced28cbcc0af03&currencies=EUR,GBP"
           parameters:@{}
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
                  NSDictionary *resp = (NSDictionary *) responseObject;
@@ -122,7 +124,12 @@
 }
 
 - (IBAction)cancelTap:(id)sender {
-    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops"
+                                                    message:@"Other screens of the app are in development =)"
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 - (IBAction)exchangeTap:(id)sender {
@@ -166,11 +173,13 @@
     if ([collectionView isEqual:self.collectionExchangeFrom]) {
         cell = (CollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CellFrom" forIndexPath:indexPath];
         currency = collectionDataExchangeFrom[indexPath.row];
+        
         if (userInput.length) {
             cell.labelMoneyForExchange.text = [@"-" stringByAppendingString:userInput];
         } else {
             cell.labelMoneyForExchange.text = @"";
         }
+        
         if ([self haveEnoughMoney] || !userInput.length) {
             cell.labelMoneyAmount.textColor = [UIColor whiteColor];
         } else {
@@ -180,18 +189,23 @@
     } else if ([collectionView isEqual:self.collectionExchangeTo]) {
         cell = (CollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CellTo" forIndexPath:indexPath];
         currency= collectionDataExchangeTo[indexPath.row];
+        Currency *currencyFrom = collectionDataExchangeFrom[currentIndexCellExchangeFrom];
         
         if (userInput.length) {
-            Currency *currencyFrom = collectionDataExchangeFrom[currentIndexCellExchangeFrom];
             exchangedAmount = [self calculateAmountFrom:currencyFrom to:currency];
-            CGFloat exchangedRate = [self calculateRateFrom:currencyFrom to:currency];
-            
             cell.labelExchangedMoney.text = [NSString stringWithFormat:@"+%.2f", exchangedAmount];
-            cell.labelExchangeRate.text =
-                [NSString stringWithFormat:@"%@%d = %@%.2f", currencyFrom.symbol, 1, currency.symbol, exchangedRate];
         } else {
             cell.labelExchangedMoney.text = @"";
+        }
+        
+        if ([self moneyCurrencyNotEqual] && exchangeRate) {
+            CGFloat exchangedRate = [self calculateRateFrom:currencyFrom to:currency];
+            cell.labelExchangeRate.text = [NSString stringWithFormat:@"%@%d = %@%.2f", currencyFrom.symbol, 1, currency.symbol, exchangedRate];
+            [self setupExchangeRate:[NSString stringWithFormat:@"%@%d = %@%.4f", currencyFrom.symbol, 1, currency.symbol, exchangedRate]];
+        } else {
             cell.labelExchangeRate.text = @"";
+            NSString *exchangeRateString = [NSString stringWithFormat:@"%@%d = %@%.2f", currencyFrom.symbol, 1, currency.symbol, 1.0000];
+            [self setupExchangeRate:exchangeRateString];
         }
     }
     
@@ -219,7 +233,7 @@
 
 - (void)setupDataForCollectionExchangeFrom {
     NSArray *originalArray = [userMoney copy];
-
+    
     id firstItem = originalArray[0];
     id lastItem = [originalArray lastObject];
     
@@ -236,14 +250,14 @@
 
 //- (void)setupDataForCollectionExchangeTo {
 //    NSArray *originalArray = [userMoney copy];
-//    
+//
 //    id firstItem = originalArray[0];
 //    id lastItem = [originalArray lastObject];
-//    
+//
 //    NSMutableArray *workingArray = [originalArray mutableCopy];
 //    [workingArray insertObject:lastItem atIndex:0];
 //    [workingArray addObject:firstItem];
-//    
+//
 //    collectionDataExchangeTo = [NSArray arrayWithArray:workingArray];
 //}
 
@@ -271,7 +285,7 @@
     }
     NSLog(@"Scrolling - You are now on page %i", page);
     pageControl.currentPage = page;
-
+    
     // Calculate where the collection view should be at the right-hand end item
     float contentOffsetWhenFullyScrolledRight = collectionView.frame.size.width * ([collectionData count] -1);
     if (collectionView.contentOffset.x == contentOffsetWhenFullyScrolledRight) {
@@ -302,9 +316,9 @@
         [self.collectionExchangeFrom reloadData];
         [self.collectionExchangeTo reloadData];
         
-//         NSIndexPath *currentIndexPathFrom = [[NSIndexPath alloc] initWithIndex:currentIndexCellExchangeFrom];
-//        [self.collectionExchangeFrom reloadItemsAtIndexPaths:@[currentIndexPathFrom]];
-//        CollectionCell *currentCellFrom  = (CollectionCell *)[self.collectionExchangeFrom cellForItemAtIndexPath:currentIndexPathFrom];
+        //         NSIndexPath *currentIndexPathFrom = [[NSIndexPath alloc] initWithIndex:currentIndexCellExchangeFrom];
+        //        [self.collectionExchangeFrom reloadItemsAtIndexPaths:@[currentIndexPathFrom]];
+        //        CollectionCell *currentCellFrom  = (CollectionCell *)[self.collectionExchangeFrom cellForItemAtIndexPath:currentIndexPathFrom];
     }
 }
 
