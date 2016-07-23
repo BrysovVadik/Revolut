@@ -1,0 +1,64 @@
+PODS:
+  - AFNetworkActivityLogger (2.0.4):
+    - AFNetworking/NSURLConnection (~> 2.0)
+    - AFNetworking/NSURLSession (~> 2.0)
+  - AFNetworking (2.6.3):
+    - AFNetworking/NSURLConnection (= 2.6.3)
+    - AFNetworking/NSURLSession (= 2.6.3)
+    - AFNetworking/Reachability (= 2.6.3)
+    - AFNetworking/Security (= 2.6.3)
+    - AFNetworking/Serialization (= 2.6.3)
+    - AFNetworking/UIKit (= 2.6.3)
+  - AFNetworking/NSURLConnection (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.3)
+  - AFNetworking/Security (2.6.3)
+  - AFNetworking/Serialization (2.6.3)
+  - AFNetworking/UIKit (2.6.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - Reachability (3.2)
+  - ReactiveCocoa (2.3.1):
+    - ReactiveCocoa/UI (= 2.3.1)
+  - ReactiveCocoa/Core (2.3.1):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.3.1)
+  - ReactiveCocoa/UI (2.3.1):
+    - ReactiveCocoa/Core
+  - SZConstraintsUtils (0.0.1)
+  - UIAlertView+Blocks (0.8.1)
+
+DEPENDENCIES:
+  - AFNetworkActivityLogger (~> 2.0.3)
+  - AFNetworking (~> 2.0)
+  - Reachability (~> 3.2)
+  - ReactiveCocoa (~> 2.3.1)
+  - SZConstraintsUtils (from `https://github.com/zh-se/SZConstraintsUtils.git`)
+  - UIAlertView+Blocks (~> 0.8.1)
+
+EXTERNAL SOURCES:
+  SZConstraintsUtils:
+    :git: https://github.com/zh-se/SZConstraintsUtils.git
+
+CHECKOUT OPTIONS:
+  SZConstraintsUtils:
+    :commit: b85f0c0df5e4edc5aec6c913e7b570b48dfb4ef4
+    :git: https://github.com/zh-se/SZConstraintsUtils.git
+
+SPEC CHECKSUMS:
+  AFNetworkActivityLogger: 121486778117d53b3ab1c61d264b88081d0c3eee
+  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  ReactiveCocoa: 3fe9b233ca6db810e86681b5749488564c1179a1
+  SZConstraintsUtils: 4ec02b7994ccb2735fde10233ca2226bbeb511b6
+  UIAlertView+Blocks: 45c3d3b7194906702d3e9a14c7ece5581505646d
+
+PODFILE CHECKSUM: 67e48e598518a786d91e932416838083c48ca5b3
+
+COCOAPODS: 1.0.1

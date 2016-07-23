@@ -8,6 +8,10 @@
 
 #import "ViewController.h"
 #import "CollectionCell.h"
+#import "AFHTTPRequestOperationManager.h"
+#import "Currency.h"
+
+//$€£
 
 @interface ViewController () <UITextFieldDelegate>
 
@@ -30,17 +34,33 @@
     
     NSInteger currentIndexCellExchangeFrom;
     NSInteger currentIndexCellExchangeTo;
+    
+    NSArray *userMoney;
+    NSDictionary *exchangeRate;
+    
+    NSString *userInput;
+    CGFloat exchangedAmount;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    userInput = @"";
+    
+    Currency *userUSD = [[Currency alloc] initWithName:@"USD" amount:100.0 symbol:@"$"];
+    Currency *userEUR = [[Currency alloc] initWithName:@"EUR" amount:100.0 symbol:@"€"];
+    Currency *userGBP = [[Currency alloc] initWithName:@"GBP" amount:100.0 symbol:@"£"];
+    userMoney = @[userUSD, userEUR, userGBP];
+    
+    currentIndexCellExchangeFrom = 0;
+    currentIndexCellExchangeTo = 0;
+    
+    [self setupDataForCollectionExchangeFrom];
+//    [self setupDataForCollectionExchangeTo];
+    
     self.buttonExchangeRate.layer.cornerRadius = 10;
     self.buttonExchangeRate.layer.borderWidth = 1;
     self.buttonExchangeRate.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.4].CGColor;
-    
-    [self setupDataForCollectionExchangeFrom];
-    [self setupDataForCollectionExchangeTo];
     
     [self.textFieldInput addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 }
@@ -49,6 +69,56 @@
     [super viewWillAppear:animated];
     
     [self.textFieldInput becomeFirstResponder];
+    
+    NSString *priceString = [NSString stringWithFormat:@"$%d = €%.4f", 0, 0.0000];
+    UIFont *bigFont = [UIFont systemFontOfSize:14.0];
+    NSDictionary *bigDict = [NSDictionary dictionaryWithObject: bigFont forKey:NSFontAttributeName];
+    NSMutableAttributedString *atrString = [[NSMutableAttributedString alloc] initWithString:priceString attributes: bigDict];
+    [atrString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10.0] range:(NSMakeRange(priceString.length - 2, 2))];
+    [atrString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:(NSMakeRange(0, priceString.length))];
+    
+    [self.buttonExchangeRate setAttributedTitle:atrString forState:UIControlStateNormal];
+    
+    [self getUserData:^(NSDictionary *data, NSError *error) {
+        if (!error && data) {
+            exchangeRate = data;
+        }
+    }];
+}
+
+- (void)getUserData:(void (^)(NSMutableDictionary *data, NSError *error))completion {
+    AFHTTPRequestOperationManager *restManager = [AFHTTPRequestOperationManager manager];
+    restManager.responseSerializer = [AFJSONResponseSerializer serializer];
+    restManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    restManager.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    restManager.requestSerializer.timeoutInterval = 30;
+
+//    [restManager GET:@"https://api.fixer.io/latest?symbols=USD,GBP"
+//    [restManager GET:@"https://openexchangerates.org/api/latest.json?app_id=f34802952217477ba958ed93c39d5d2c"
+     [restManager GET:@"http://www.apilayer.net/api/live?access_key=fa11b482e47b901b28ced28cbcc0af03&currencies=EUR,GBP"
+          parameters:@{}
+             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 NSDictionary *resp = (NSDictionary *) responseObject;
+                 NSMutableDictionary *currencies = [@{} mutableCopy];
+                 
+                 if (resp[@"source"]) {
+                     NSString *base = resp[@"source"];
+                     currencies[base] = @(1.0);
+                     
+                     if ([resp[@"quotes"] count]) {
+                         for (NSString *key in resp[@"quotes"]) {
+                             NSNumber *value = resp[@"quotes"][key];
+                             NSString *cutKey = [key substringFromIndex:base.length];
+                             currencies[cutKey] = value;
+                         }
+                     }
+                 }
+                 
+                 completion(currencies, nil);
+             }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 completion(nil, error);
+             }];
 }
 
 - (IBAction)cancelTap:(id)sender {
@@ -56,7 +126,19 @@
 }
 
 - (IBAction)exchangeTap:(id)sender {
+    Currency *currencyFrom = collectionDataExchangeFrom[currentIndexCellExchangeFrom];
+    Currency *currencyTo = collectionDataExchangeTo[currentIndexCellExchangeTo];
     
+    for (Currency *currency in userMoney) {
+        if ([currency.name  isEqualToString:currencyFrom.name]) {
+            currency.amount -= [userInput integerValue];
+        } else if ([currency.name  isEqualToString:currencyTo.name]) {
+            currency.amount += exchangedAmount;
+        }
+    }
+    
+    [self setupDataForCollectionExchangeFrom];
+    [self clearUserInput];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -79,20 +161,64 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CollectionCell *cell;
+    Currency *currency;
     
     if ([collectionView isEqual:self.collectionExchangeFrom]) {
         cell = (CollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CellFrom" forIndexPath:indexPath];
-        cell.labelCurrency.text = collectionDataExchangeFrom[indexPath.row];
+        currency = collectionDataExchangeFrom[indexPath.row];
+        if (userInput.length) {
+            cell.labelMoneyForExchange.text = [@"-" stringByAppendingString:userInput];
+        } else {
+            cell.labelMoneyForExchange.text = @"";
+        }
+        if ([self haveEnoughMoney] || !userInput.length) {
+            cell.labelMoneyAmount.textColor = [UIColor whiteColor];
+        } else {
+            cell.labelMoneyAmount.textColor = [UIColor redColor];
+        }
+        
     } else if ([collectionView isEqual:self.collectionExchangeTo]) {
         cell = (CollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CellTo" forIndexPath:indexPath];
-        cell.labelCurrency.text = collectionDataExchangeTo[indexPath.row];
+        currency= collectionDataExchangeTo[indexPath.row];
+        
+        if (userInput.length) {
+            Currency *currencyFrom = collectionDataExchangeFrom[currentIndexCellExchangeFrom];
+            exchangedAmount = [self calculateAmountFrom:currencyFrom to:currency];
+            CGFloat exchangedRate = [self calculateRateFrom:currencyFrom to:currency];
+            
+            cell.labelExchangedMoney.text = [NSString stringWithFormat:@"+%.2f", exchangedAmount];
+            cell.labelExchangeRate.text =
+                [NSString stringWithFormat:@"%@%d = %@%.2f", currencyFrom.symbol, 1, currency.symbol, exchangedRate];
+        } else {
+            cell.labelExchangedMoney.text = @"";
+            cell.labelExchangeRate.text = @"";
+        }
     }
+    
+    cell.labelCurrency.text = currency.name;
+    cell.labelMoneyAmount.text = [NSString stringWithFormat:@"You have %@%.2f", currency.symbol, currency.amount];
     
     return cell;
 }
 
+- (CGFloat)calculateRateFrom:(Currency *)currencyFrom to:(Currency *)currencyTo {
+    if ([currencyFrom.name isEqualToString:@"USD"]) {
+        return [exchangeRate[currencyTo.name] floatValue];
+    } else {
+        return [exchangeRate[currencyTo.name] floatValue] / [exchangeRate[currencyFrom.name] floatValue];
+    }
+}
+
+- (CGFloat)calculateAmountFrom:(Currency *)currencyFrom to:(Currency *)currencyTo {
+    if ([currencyFrom.name isEqualToString:@"USD"]) {
+        return [userInput floatValue] * [exchangeRate[currencyTo.name] floatValue];
+    } else {
+        return [userInput floatValue] / [exchangeRate[currencyFrom.name] floatValue] * [exchangeRate[currencyTo.name] floatValue];
+    }
+}
+
 - (void)setupDataForCollectionExchangeFrom {
-    NSArray *originalArray = @[@"EUR", @"GBP", @"USD"];
+    NSArray *originalArray = [userMoney copy];
 
     id firstItem = originalArray[0];
     id lastItem = [originalArray lastObject];
@@ -102,20 +228,24 @@
     [workingArray addObject:firstItem];
     
     collectionDataExchangeFrom = [NSMutableArray arrayWithArray:workingArray];
+    collectionDataExchangeTo = [NSMutableArray arrayWithArray:workingArray];
+    
+    [self.collectionExchangeFrom reloadData];
+    [self.collectionExchangeTo reloadData];
 }
 
-- (void)setupDataForCollectionExchangeTo {
-    NSArray *originalArray = @[@"USD", @"EUR", @"GBP"];
-    
-    id firstItem = originalArray[0];
-    id lastItem = [originalArray lastObject];
-    
-    NSMutableArray *workingArray = [originalArray mutableCopy];
-    [workingArray insertObject:lastItem atIndex:0];
-    [workingArray addObject:firstItem];
-    
-    collectionDataExchangeTo = [NSArray arrayWithArray:workingArray];
-}
+//- (void)setupDataForCollectionExchangeTo {
+//    NSArray *originalArray = [userMoney copy];
+//    
+//    id firstItem = originalArray[0];
+//    id lastItem = [originalArray lastObject];
+//    
+//    NSMutableArray *workingArray = [originalArray mutableCopy];
+//    [workingArray insertObject:lastItem atIndex:0];
+//    [workingArray addObject:firstItem];
+//    
+//    collectionDataExchangeTo = [NSArray arrayWithArray:workingArray];
+//}
 
 - (void)scrollViewDidEndDecelerating:(UICollectionView *)collectionView {
     NSArray *collectionData = [NSArray new];
@@ -155,16 +285,54 @@
         NSIndexPath *newIndexPath = [NSIndexPath indexPathForItem:([collectionData count] -2) inSection:0];
         [collectionView scrollToItemAtIndexPath:newIndexPath atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
     }
+    
+    [self clearUserInput];
 }
 
-- (void)textFieldDidChange:(UITextField *)theTextField {
-    NSString *userInput = theTextField.text;
-    collectionDataExchangeFrom[0] = userInput;
-    
-    NSIndexPath *currentIndexPath = [[NSIndexPath alloc] initWithIndex:currentIndexCellExchangeFrom];
-    CollectionCell *currentCell  = (CollectionCell *)[self.collectionExchangeFrom cellForItemAtIndexPath:currentIndexPath];
-    
-    [self.collectionExchangeFrom reloadItemsAtIndexPaths:@[currentIndexPath]];
+- (void)textFieldDidChange:(UITextField *)textField {
+    if (exchangeRate && exchangeRate.count && [self moneyCurrencyNotEqual]) {
+        userInput = textField.text;
+        if (userInput.length && [self haveEnoughMoney] && [self moneyCurrencyNotEqual]) {
+            self.buttonExchange.enabled = YES;
+        } else {
+            self.buttonExchange.enabled = NO;
+        }
+        //    Currency *currencyFrom = collectionDataExchangeFrom[currentIndexCellExchangeFrom];
+        
+        [self.collectionExchangeFrom reloadData];
+        [self.collectionExchangeTo reloadData];
+        
+//         NSIndexPath *currentIndexPathFrom = [[NSIndexPath alloc] initWithIndex:currentIndexCellExchangeFrom];
+//        [self.collectionExchangeFrom reloadItemsAtIndexPaths:@[currentIndexPathFrom]];
+//        CollectionCell *currentCellFrom  = (CollectionCell *)[self.collectionExchangeFrom cellForItemAtIndexPath:currentIndexPathFrom];
+    }
+}
+
+- (void)clearUserInput {
+    userInput = @"";
+    self.textFieldInput.text = userInput;
+    [self.collectionExchangeFrom reloadData];
+    [self.collectionExchangeTo reloadData];
+    self.buttonExchange.enabled = NO;
+}
+
+- (BOOL)haveEnoughMoney {
+    Currency *currencyFrom = collectionDataExchangeFrom[currentIndexCellExchangeFrom];
+    if ([userInput integerValue] <= currencyFrom.amount) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (BOOL)moneyCurrencyNotEqual {
+    Currency *currencyFrom = collectionDataExchangeFrom[currentIndexCellExchangeFrom];
+    Currency *currencyTo = collectionDataExchangeTo[currentIndexCellExchangeTo];
+    if ([currencyFrom.name isEqualToString:currencyTo.name]) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 @end

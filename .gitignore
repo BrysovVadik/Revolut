@@ -1,0 +1,5 @@
+/Pods/
+/.idea/
+/Revolut.xcodeproj/xcuserdata/
+/Revolut.xcworkspace/xcuserdata/
+.DS_Store

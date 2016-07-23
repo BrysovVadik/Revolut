@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D880092311B44C5A004FA446 /* libPods-Revolut.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4935ED862C90B5C3630E35D7 /* libPods-Revolut.a */; };
 		DD61524F1D3E9906006134FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DD61524E1D3E9906006134FD /* main.m */; };
 		DD6152521D3E9906006134FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6152511D3E9906006134FD /* AppDelegate.m */; };
 		DD6152551D3E9906006134FD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6152541D3E9906006134FD /* ViewController.m */; };
@@ -15,9 +16,13 @@
 		DD61525D1D3E9906006134FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD61525B1D3E9906006134FD /* LaunchScreen.storyboard */; };
 		DD6152661D3EAEA5006134FD /* CollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6152651D3EAEA5006134FD /* CollectionCell.m */; };
 		DD61526A1D3EB640006134FD /* InfiniteHorizontalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6152691D3EB640006134FD /* InfiniteHorizontalLayout.m */; };
+		DD6152701D40228C006134FD /* Currency.m in Sources */ = {isa = PBXBuildFile; fileRef = DD61526F1D40228C006134FD /* Currency.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4935ED862C90B5C3630E35D7 /* libPods-Revolut.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Revolut.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		75656D50AA1A283AFB616BD9 /* Pods-Revolut.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Revolut.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Revolut/Pods-Revolut.debug.xcconfig"; sourceTree = "<group>"; };
+		CC3CAB2AB1420F512EE512B2 /* Pods-Revolut.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Revolut.release.xcconfig"; path = "Pods/Target Support Files/Pods-Revolut/Pods-Revolut.release.xcconfig"; sourceTree = "<group>"; };
 		DD61524A1D3E9906006134FD /* Revolut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Revolut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD61524E1D3E9906006134FD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DD6152501D3E9906006134FD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -32,6 +37,8 @@
 		DD6152651D3EAEA5006134FD /* CollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionCell.m; sourceTree = "<group>"; };
 		DD6152681D3EB640006134FD /* InfiniteHorizontalLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfiniteHorizontalLayout.h; sourceTree = "<group>"; };
 		DD6152691D3EB640006134FD /* InfiniteHorizontalLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfiniteHorizontalLayout.m; sourceTree = "<group>"; };
+		DD61526E1D40228C006134FD /* Currency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Currency.h; sourceTree = "<group>"; };
+		DD61526F1D40228C006134FD /* Currency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Currency.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,17 +46,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D880092311B44C5A004FA446 /* libPods-Revolut.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		21D735DFBA55C598D3CFE4C6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				75656D50AA1A283AFB616BD9 /* Pods-Revolut.debug.xcconfig */,
+				CC3CAB2AB1420F512EE512B2 /* Pods-Revolut.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		6B1C167D2458B126B375869E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4935ED862C90B5C3630E35D7 /* libPods-Revolut.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DD6152411D3E9906006134FD = {
 			isa = PBXGroup;
 			children = (
 				DD61524C1D3E9906006134FD /* Revolut */,
 				DD61524B1D3E9906006134FD /* Products */,
+				21D735DFBA55C598D3CFE4C6 /* Pods */,
+				6B1C167D2458B126B375869E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,6 +103,8 @@
 				DD61525B1D3E9906006134FD /* LaunchScreen.storyboard */,
 				DD6152561D3E9906006134FD /* Main.storyboard */,
 				DD61524D1D3E9906006134FD /* Supporting Files */,
+				DD61526E1D40228C006134FD /* Currency.h */,
+				DD61526F1D40228C006134FD /* Currency.m */,
 			);
 			path = Revolut;
 			sourceTree = "<group>";
@@ -104,9 +133,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DD6152611D3E9906006134FD /* Build configuration list for PBXNativeTarget "Revolut" */;
 			buildPhases = (
+				6D49B471EA879EFA243E8287 /* [CP] Check Pods Manifest.lock */,
 				DD6152461D3E9906006134FD /* Sources */,
 				DD6152471D3E9906006134FD /* Frameworks */,
 				DD6152481D3E9906006134FD /* Resources */,
+				7252E37542D06218836453A6 /* [CP] Embed Pods Frameworks */,
+				B646B6A8DF41C66FA3ECD844 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -162,6 +194,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6D49B471EA879EFA243E8287 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7252E37542D06218836453A6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Revolut/Pods-Revolut-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B646B6A8DF41C66FA3ECD844 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Revolut/Pods-Revolut-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DD6152461D3E9906006134FD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -169,6 +249,7 @@
 			files = (
 				DD6152551D3E9906006134FD /* ViewController.m in Sources */,
 				DD61526A1D3EB640006134FD /* InfiniteHorizontalLayout.m in Sources */,
+				DD6152701D40228C006134FD /* Currency.m in Sources */,
 				DD6152521D3E9906006134FD /* AppDelegate.m in Sources */,
 				DD61524F1D3E9906006134FD /* main.m in Sources */,
 				DD6152661D3EAEA5006134FD /* CollectionCell.m in Sources */,
@@ -281,6 +362,7 @@
 		};
 		DD6152621D3E9906006134FD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75656D50AA1A283AFB616BD9 /* Pods-Revolut.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Revolut/Info.plist;
@@ -293,6 +375,7 @@
 		};
 		DD6152631D3E9906006134FD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC3CAB2AB1420F512EE512B2 /* Pods-Revolut.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Revolut/Info.plist;
@@ -322,6 +405,7 @@
 				DD6152631D3E9906006134FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
