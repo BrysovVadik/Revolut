@@ -92,6 +92,8 @@
     [super viewWillDisappear:animated];
     
     [self unbindVM];
+    [requestTimer invalidate];
+    requestTimer = nil;
 }
 
 - (IBAction)cancelTap:(id)sender {
