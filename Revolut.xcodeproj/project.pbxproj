@@ -7,28 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D880092311B44C5A004FA446 /* libPods-Revolut.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4935ED862C90B5C3630E35D7 /* libPods-Revolut.a */; };
+		CDC5369461CF4941710FEA69 /* Pods_Revolut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2635DBD88B927F9BB3A079 /* Pods_Revolut.framework */; };
 		DD61524F1D3E9906006134FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DD61524E1D3E9906006134FD /* main.m */; };
 		DD6152521D3E9906006134FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6152511D3E9906006134FD /* AppDelegate.m */; };
-		DD6152551D3E9906006134FD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6152541D3E9906006134FD /* ViewController.m */; };
+		DD6152551D3E9906006134FD /* ExchangeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6152541D3E9906006134FD /* ExchangeVC.m */; };
 		DD6152581D3E9906006134FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD6152561D3E9906006134FD /* Main.storyboard */; };
 		DD61525A1D3E9906006134FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD6152591D3E9906006134FD /* Assets.xcassets */; };
 		DD61525D1D3E9906006134FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD61525B1D3E9906006134FD /* LaunchScreen.storyboard */; };
 		DD6152661D3EAEA5006134FD /* CollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6152651D3EAEA5006134FD /* CollectionCell.m */; };
 		DD61526A1D3EB640006134FD /* InfiniteHorizontalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6152691D3EB640006134FD /* InfiniteHorizontalLayout.m */; };
 		DD6152701D40228C006134FD /* Currency.m in Sources */ = {isa = PBXBuildFile; fileRef = DD61526F1D40228C006134FD /* Currency.m */; };
+		DDEE80251D436085005D5BA1 /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEE80221D436084005D5BA1 /* Config.m */; };
+		DDEE80261D436085005D5BA1 /* Transport.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEE80241D436084005D5BA1 /* Transport.m */; };
+		DDEE802A1D4364E6005D5BA1 /* ExchangeVM.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEE80291D4364E6005D5BA1 /* ExchangeVM.m */; };
+		DDEE802D1D436741005D5BA1 /* CheckNetVM.m in Sources */ = {isa = PBXBuildFile; fileRef = DDEE802C1D436741005D5BA1 /* CheckNetVM.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4935ED862C90B5C3630E35D7 /* libPods-Revolut.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Revolut.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D2635DBD88B927F9BB3A079 /* Pods_Revolut.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Revolut.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75656D50AA1A283AFB616BD9 /* Pods-Revolut.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Revolut.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Revolut/Pods-Revolut.debug.xcconfig"; sourceTree = "<group>"; };
 		CC3CAB2AB1420F512EE512B2 /* Pods-Revolut.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Revolut.release.xcconfig"; path = "Pods/Target Support Files/Pods-Revolut/Pods-Revolut.release.xcconfig"; sourceTree = "<group>"; };
 		DD61524A1D3E9906006134FD /* Revolut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Revolut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD61524E1D3E9906006134FD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DD6152501D3E9906006134FD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DD6152511D3E9906006134FD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		DD6152531D3E9906006134FD /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		DD6152541D3E9906006134FD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		DD6152531D3E9906006134FD /* ExchangeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExchangeVC.h; sourceTree = "<group>"; };
+		DD6152541D3E9906006134FD /* ExchangeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExchangeVC.m; sourceTree = "<group>"; };
 		DD6152571D3E9906006134FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DD6152591D3E9906006134FD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD61525C1D3E9906006134FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -39,6 +43,14 @@
 		DD6152691D3EB640006134FD /* InfiniteHorizontalLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfiniteHorizontalLayout.m; sourceTree = "<group>"; };
 		DD61526E1D40228C006134FD /* Currency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Currency.h; sourceTree = "<group>"; };
 		DD61526F1D40228C006134FD /* Currency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Currency.m; sourceTree = "<group>"; };
+		DDEE80211D436084005D5BA1 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		DDEE80221D436084005D5BA1 /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
+		DDEE80231D436084005D5BA1 /* Transport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transport.h; sourceTree = "<group>"; };
+		DDEE80241D436084005D5BA1 /* Transport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transport.m; sourceTree = "<group>"; };
+		DDEE80281D4364E6005D5BA1 /* ExchangeVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeVM.h; sourceTree = "<group>"; };
+		DDEE80291D4364E6005D5BA1 /* ExchangeVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeVM.m; sourceTree = "<group>"; };
+		DDEE802B1D436741005D5BA1 /* CheckNetVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckNetVM.h; sourceTree = "<group>"; };
+		DDEE802C1D436741005D5BA1 /* CheckNetVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckNetVM.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D880092311B44C5A004FA446 /* libPods-Revolut.a in Frameworks */,
+				CDC5369461CF4941710FEA69 /* Pods_Revolut.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,7 +77,7 @@
 		6B1C167D2458B126B375869E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4935ED862C90B5C3630E35D7 /* libPods-Revolut.a */,
+				3D2635DBD88B927F9BB3A079 /* Pods_Revolut.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -91,20 +103,16 @@
 		DD61524C1D3E9906006134FD /* Revolut */ = {
 			isa = PBXGroup;
 			children = (
-				DD6152671D3EB640006134FD /* InfiniteHorizontalLayout */,
 				DD6152501D3E9906006134FD /* AppDelegate.h */,
-				DD6152641D3EAEA5006134FD /* CollectionCell.h */,
-				DD6152531D3E9906006134FD /* ViewController.h */,
 				DD6152511D3E9906006134FD /* AppDelegate.m */,
-				DD6152651D3EAEA5006134FD /* CollectionCell.m */,
-				DD6152541D3E9906006134FD /* ViewController.m */,
-				DD61525E1D3E9906006134FD /* Info.plist */,
 				DD6152591D3E9906006134FD /* Assets.xcassets */,
+				DD61525E1D3E9906006134FD /* Info.plist */,
 				DD61525B1D3E9906006134FD /* LaunchScreen.storyboard */,
 				DD6152561D3E9906006134FD /* Main.storyboard */,
+				DDEE801F1D436031005D5BA1 /* Model */,
 				DD61524D1D3E9906006134FD /* Supporting Files */,
-				DD61526E1D40228C006134FD /* Currency.h */,
-				DD61526F1D40228C006134FD /* Currency.m */,
+				DDEE80201D436041005D5BA1 /* View */,
+				DDEE80271D436486005D5BA1 /* ViewModel */,
 			);
 			path = Revolut;
 			sourceTree = "<group>";
@@ -124,6 +132,42 @@
 				DD6152691D3EB640006134FD /* InfiniteHorizontalLayout.m */,
 			);
 			path = InfiniteHorizontalLayout;
+			sourceTree = "<group>";
+		};
+		DDEE801F1D436031005D5BA1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DDEE80211D436084005D5BA1 /* Config.h */,
+				DDEE80221D436084005D5BA1 /* Config.m */,
+				DD61526E1D40228C006134FD /* Currency.h */,
+				DD61526F1D40228C006134FD /* Currency.m */,
+				DDEE80231D436084005D5BA1 /* Transport.h */,
+				DDEE80241D436084005D5BA1 /* Transport.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		DDEE80201D436041005D5BA1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DD6152641D3EAEA5006134FD /* CollectionCell.h */,
+				DD6152651D3EAEA5006134FD /* CollectionCell.m */,
+				DD6152531D3E9906006134FD /* ExchangeVC.h */,
+				DD6152541D3E9906006134FD /* ExchangeVC.m */,
+				DD6152671D3EB640006134FD /* InfiniteHorizontalLayout */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		DDEE80271D436486005D5BA1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DDEE802B1D436741005D5BA1 /* CheckNetVM.h */,
+				DDEE802C1D436741005D5BA1 /* CheckNetVM.m */,
+				DDEE80281D4364E6005D5BA1 /* ExchangeVM.h */,
+				DDEE80291D4364E6005D5BA1 /* ExchangeVM.m */,
+			);
+			name = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,8 +291,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD6152551D3E9906006134FD /* ViewController.m in Sources */,
+				DDEE80251D436085005D5BA1 /* Config.m in Sources */,
+				DDEE802D1D436741005D5BA1 /* CheckNetVM.m in Sources */,
+				DDEE802A1D4364E6005D5BA1 /* ExchangeVM.m in Sources */,
+				DD6152551D3E9906006134FD /* ExchangeVC.m in Sources */,
 				DD61526A1D3EB640006134FD /* InfiniteHorizontalLayout.m in Sources */,
+				DDEE80261D436085005D5BA1 /* Transport.m in Sources */,
 				DD6152701D40228C006134FD /* Currency.m in Sources */,
 				DD6152521D3E9906006134FD /* AppDelegate.m in Sources */,
 				DD61524F1D3E9906006134FD /* main.m in Sources */,
@@ -365,11 +413,14 @@
 			baseConfigurationReference = 75656D50AA1A283AFB616BD9 /* Pods-Revolut.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Revolut/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.brysov.Revolut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -378,11 +429,14 @@
 			baseConfigurationReference = CC3CAB2AB1420F512EE512B2 /* Pods-Revolut.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Revolut/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.brysov.Revolut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

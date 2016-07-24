@@ -1,12 +1,5 @@
-//
-//  Currency.m
-//  Revolut
-//
-//  Created by Vadim on 21/07/16.
-//  Copyright © 2016 Brysov Corp. All rights reserved.
-//
-
 #import "Currency.h"
+
 
 @implementation Currency
 
